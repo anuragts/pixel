@@ -6,7 +6,7 @@ export type UserType = {
 
 export type NoteType = {
   id: number;
-  title: string;
-  content: string;
-  userId: number;
+  title?: string;
+  content?: string;
+  userId?: number;
 };

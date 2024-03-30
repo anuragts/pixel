@@ -32,13 +32,16 @@ export async function getNotes() {
     console.log(n);
   return n;
 }
-
 export async function getNoteById(id: number) {
-  return await db
-    .select()
-    .from(notes)
-    // .leftJoin(users, eq(users.id, notes.userId))
-    .where(eq(notes.id, id))
+    const data = await db
+        .select()
+        .from(notes)
+        // .leftJoin(users, eq(users.id, notes.userId))
+        .where(eq(notes.id, id));
+
+    const note = data[0] || null; // Take the first element of the array or null if the array is empty
+
+    return JSON.stringify(note); // This will be a JSON string
 }
 
 export async function createNote(note: NoteType) {

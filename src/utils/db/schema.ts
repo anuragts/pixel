@@ -19,8 +19,8 @@ export const users = pgTable("users", {
 
 export const notes = pgTable("notes", {
   id: serial("id").primaryKey(),
-  title: varchar("title", { length: 256 }).notNull(),
-  content: text("content").notNull(),
+  title: varchar("title", { length: 256 }),
+  content: text("content"),
   userId: serial("user_id")
     .references(() => users.id)
     .notNull(),
