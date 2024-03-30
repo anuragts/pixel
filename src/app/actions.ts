@@ -33,6 +33,14 @@ export async function getNotes() {
   return n;
 }
 
+export async function getNoteById(id: number) {
+  return await db
+    .select()
+    .from(notes)
+    // .leftJoin(users, eq(users.id, notes.userId))
+    .where(eq(notes.id, id))
+}
+
 export async function createNote(note: NoteType) {
   return await db.insert(notes).values(note).returning();
 }
