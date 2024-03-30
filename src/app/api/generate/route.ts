@@ -34,8 +34,6 @@ export async function POST(req: Request): Promise<Response> {
     n: 1,
   });
 
-
-
   const stream = OpenAIStream(response);
 
   return new StreamingTextResponse(stream);
