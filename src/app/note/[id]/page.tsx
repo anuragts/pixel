@@ -7,7 +7,8 @@ export default function page() {
         <>
         <Editor 
         completionApi='/api/generate'
-        className='text-gray-900 bg-gray-100 h-[100vh]' 
+        className='text-gray-100 bg-black h-[100vh]' 
+
         />
         </>
     )
