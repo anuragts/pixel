@@ -1,11 +1,12 @@
 export type UserType = {
-    id: number,
-    email: string,
-    username: string
-}
+  id: number;
+  email: string;
+  username: string;
+};
 
 export type NoteType = {
-    title: string,
-    content: string,
-    userId: number
-}
+  id: number;
+  title: string;
+  content: string;
+  userId: number;
+};
