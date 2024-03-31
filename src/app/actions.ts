@@ -7,7 +7,22 @@ import { eq } from "drizzle-orm";
 
 // basic CRUD operations
 
-export async function createUser(user: UserType) {
+type createUserType = {
+  email: string;
+  username: string;
+};
+
+export async function createUsername(email: string) {
+  const parts = email.split("@");
+
+  const usernamePart = parts[0];
+
+  const randomNum = Math.floor(Math.random() * 900) + 100;
+
+  return `${usernamePart}${randomNum}`;
+}
+
+export async function createUser(user: createUserType) {
   return await db.insert(users).values(user).returning();
 }
 
@@ -29,19 +44,19 @@ export async function getNotes() {
     .from(notes)
     .leftJoin(users, eq(users.id, notes.userId))
     .where(eq(users.id, 1));
-    console.log(n);
+  console.log(n);
   return n;
 }
 export async function getNoteById(id: number) {
-    const data = await db
-        .select()
-        .from(notes)
-        // .leftJoin(users, eq(users.id, notes.userId))
-        .where(eq(notes.id, id));
+  const data = await db
+    .select()
+    .from(notes)
+    // .leftJoin(users, eq(users.id, notes.userId))
+    .where(eq(notes.id, id));
 
-    const note = data[0] || null; // Take the first element of the array or null if the array is empty
+  const note = data[0] || null; // Take the first element of the array or null if the array is empty
 
-    return JSON.stringify(note); // This will be a JSON string
+  return JSON.stringify(note); // This will be a JSON string
 }
 
 export async function createNote(note: NoteType) {
