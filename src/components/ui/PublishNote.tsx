@@ -16,7 +16,7 @@ type PublishNoteProps = {
   }
 
   return (
-    <div>
+    <div className="mx-2">
       <Button onClick={handleClick}>Publish Note</Button>
     </div>
   );
