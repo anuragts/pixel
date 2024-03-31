@@ -13,7 +13,8 @@ type Note = {
 };
 export default function Editor({ id }: { id: number }) {
   const [data, setData] = useState<JSONContent | string>("");
-  const [note, setNote] = useState<Note | null>(null);
+  // const [note, setNote] = useState<Note | null>(null);
+  const [title,setTitle] = useState<string>("");
   const [cloudData, setCloudData] = useState<JSONContent | string>("");
   const [syncWithCloudWarning, setSyncWithCloudWarning] = useState(false);
   const [saveStatus, setSaveStatus] = useState("Saved");
@@ -34,6 +35,7 @@ export default function Editor({ id }: { id: number }) {
       const cloud = await loadData();
       if (cloud) {
         const parsedCloud = JSON.parse(cloud);
+        setTitle(parsedCloud.title);
         const contentCloud = parsedCloud.content;
         setCloudData(contentCloud as JSONContent[]);
         console.log("cloud", parsedCloud);
@@ -76,7 +78,7 @@ export default function Editor({ id }: { id: number }) {
       )}
 
       <div className="relative w-full pb-8">
-        <h2 className="text-2xl text-center my-3 font-bold mb-4">Note Content</h2>
+        <h2 className="text-2xl text-center my-3 font-bold mb-4">{title}</h2>
         <div className="absolute right-5 top-5 mb-5 rounded-lg  bg-secondary px-2 py-1 text-sm ">
           {saveStatus}
         </div>

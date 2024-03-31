@@ -62,9 +62,16 @@ const NotesGallery = () => {
       <h2 className="text-2xl font-semibold text-center mb-4">Notes Gallery</h2>
       <ul>
         {notes.map((note) => (
-          <li key={note.id} className="border border-gray-300 p-4 my-2 rounded">
-            <Link href={`/note/${note.id}`} >
-            {note.title}
+          <li
+            key={note.id}
+            className="border border-gray-300 p-4 my-2 rounded flex justify-between items-center"
+          >
+            <Link href={`/note/${note.id}`}>{note.title}</Link>
+            <Link
+              href={`/chat/${note.id}`}
+              className="bg-secondary py-2 px-4 rounded-lg"
+            >
+              Chat
             </Link>
           </li>
         ))}

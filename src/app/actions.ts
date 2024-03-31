@@ -12,6 +12,12 @@ type createUserType = {
   username: string;
 };
 
+type createNoteType ={ 
+  title?: string ;
+  content?: string ;
+  userId?: number ;
+}
+
 export async function createUsername(email: string) {
   const parts = email.split("@");
 
@@ -20,6 +26,12 @@ export async function createUsername(email: string) {
   const randomNum = Math.floor(Math.random() * 900) + 100;
 
   return `${usernamePart}${randomNum}`;
+}
+
+export async function getUserbyEmail(email:string) {
+  const data = await db.select().from(users).where(eq(users.email, email));
+  const user = data[0] || null;
+  return user;
 }
 
 export async function createUser(user: createUserType) {
@@ -59,7 +71,7 @@ export async function getNoteById(id: number) {
   return JSON.stringify(note); // This will be a JSON string
 }
 
-export async function createNote(note: NoteType) {
+export async function createNote(note: createNoteType) {
   return await db.insert(notes).values(note).returning();
 }
 
