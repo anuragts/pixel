@@ -86,3 +86,7 @@ export async function updateNote(note: NoteType) {
 export async function deleteNote(id: number) {
   return await db.delete(notes).where(eq(notes.id, id)).returning();
 }
+
+export async function publishNote(id:number){
+  return await db.update(notes).set({published:true}).where(eq(notes.id,id)).returning();
+}

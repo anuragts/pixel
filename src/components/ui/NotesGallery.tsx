@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { getNotes } from "@/app/actions";
 import { createClient } from "@/utils/supabase/client";
+import PublishNote from "./PublishNote";
 import Link from "next/link";
 
 // Define types
@@ -73,6 +74,7 @@ const NotesGallery = () => {
             >
               Chat
             </Link>
+            <PublishNote id={note.id} />
           </li>
         ))}
       </ul>
