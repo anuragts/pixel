@@ -10,7 +10,7 @@ export default function Warning({
   return (
     <div
       key="1"
-      className="m-4 flex items-center gap-4 rounded-lg bg-white p-6 shadow-md"
+      className="m-4 flex items-center gap-4 rounded-lg bg-secondary p-6 shadow-md"
     >
       <AlertTriangleIcon className="hidden h-6 w-6 text-yellow-500 md:block" />
       <div className="flex-grow">

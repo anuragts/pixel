@@ -75,8 +75,9 @@ export default function Editor({ id }: { id: number }) {
         />
       )}
 
-      <div className="relative w-full max-w-screen-lg pb-8">
-        <div className="absolute right-5 top-5 mb-5 rounded-lg bg-stone-100 px-2 py-1 text-sm text-stone-400">
+      <div className="relative w-full pb-8">
+        <h2 className="text-2xl text-center my-3 font-bold mb-4">Note Content</h2>
+        <div className="absolute right-5 top-5 mb-5 rounded-lg  bg-secondary px-2 py-1 text-sm ">
           {saveStatus}
         </div>
         <NovelEditor
@@ -84,7 +85,7 @@ export default function Editor({ id }: { id: number }) {
           defaultValue={data}
           storageKey={`${id}`}
           completionApi="/api/generate"
-          className="text-gray-100 bg-black h-[100vh]"
+          className="max-h-screen "
           onUpdate={(_) => {
             setSaveStatus("Unsaved");
           }}
