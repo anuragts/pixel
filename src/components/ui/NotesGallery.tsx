@@ -1,7 +1,8 @@
 "use client";
-
 import { useEffect, useState } from "react";
 import { getNotes } from "@/app/actions";
+import { createClient } from "@/utils/supabase/client";
+import Link from "next/link";
 
 // Define types
 type Note = {
@@ -16,7 +17,7 @@ type User = {
   email: string;
   username: string;
   createdAt: string;
-  updatedAt: string;    
+  updatedAt: string;
 };
 
 type NoteData = {
@@ -24,38 +25,52 @@ type NoteData = {
   users: User;
 };
 
-export default function NotesGallery() {
-type User = {
-    id: number;
-    email: string;
-    username: string | null;
-    createdAt: string | null;
-    updatedAt: string | null;
-};
+const NotesGallery = () => {
+  const [notes, setNotes] = useState<Note[]>([]);
+  const [loading, setLoading] = useState(true);
+  const supabase = createClient();
 
-const [notes, setNotes] = useState<Note[]>([]);
-useEffect(() => {
+  useEffect(() => {
     const fetchData = async () => {
+      const { data, error } = await supabase.auth.getUser();
+
+      if (!error && data) {
+        const email = data?.user?.email;
         try {
-            const notesData: any = await getNotes();
-            setNotes(notesData.map((noteData: NoteData) => noteData.notes)); 
+          const notesData: any = await getNotes(email as string);
+          setNotes(notesData.map((noteData: NoteData) => noteData.notes));
         } catch (error) {
-            console.error(error);
+          console.error(error);
         }
+      }
+      setLoading(false);
     };
 
     fetchData();
-}, []);
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        Loading...
+      </div>
+    );
+  }
+
   return (
-    <div>
-      NotesGallery
+    <div className="max-w-md mx-auto p-4">
+      <h2 className="text-2xl font-semibold text-center mb-4">Notes Gallery</h2>
       <ul>
         {notes.map((note) => (
-          <li key={note.id}>
+          <li key={note.id} className="border border-gray-300 p-4 my-2 rounded">
+            <Link href={`/note/${note.id}`} >
             {note.title}
+            </Link>
           </li>
         ))}
       </ul>
     </div>
   );
-}
+};
+
+export default NotesGallery;

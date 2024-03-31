@@ -38,12 +38,12 @@ export async function deleteUser(id: number) {
   return await db.delete(users).where(eq(users.id, id)).returning();
 }
 
-export async function getNotes() {
+export async function getNotes(email:string) {
   const n = await db
     .select()
     .from(notes)
     .leftJoin(users, eq(users.id, notes.userId))
-    .where(eq(users.id, 1));
+    .where(eq(users.email, email));
   console.log(n);
   return n;
 }
