@@ -21,6 +21,7 @@ export const notes = pgTable("notes", {
   id: serial("id").primaryKey(),
   title: varchar("title", { length: 256 }),
   content: text("content"),
+  published: boolean("published").default(false),
   userId: serial("user_id")
     .references(() => users.id)
     .notNull(),
